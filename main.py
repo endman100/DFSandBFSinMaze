@@ -84,7 +84,7 @@ def getMaze(h, w, preview=False):
         targetPath = connectPath[randIndex]
         startSet.append(targetPath)
         if(preview):
-            drawMaze(maze, h, w, 500, 500, preview=True)
+            mazeImage = drawMaze(maze, h, w, 500, 500, preview=True)
 
     returnMaze = np.zeros((mazeH, mazeW))
     for i in range(0, mazeH):
@@ -122,17 +122,19 @@ def drawMaze(maze, h, w, mazeH, mazeW, preview=False):
                 x1, y1, x2, y2 = x1 + sizeH, y1 + sizeW, x2 + sizeH, y2 + sizeW
                 cv2.line(mazeImage, (int(y1), int(x1)), (int(y2), int(x2)), (0, 0, 255), 1)
 
-    cv2.imshow("asd", mazeImage)
+    
     if(preview):
+        cv2.imshow("asd", mazeImage)
         cv2.waitKey(1)
-    else:
-        cv2.waitKey(0)
+    return mazeImage
 
 
-h, w = 50, 50
+h, w = 15, 15
 mazeH, mazeW = 500, 500
 maze = getMaze(h, w, preview=True)
-drawMaze(maze, h, w, mazeH, mazeW)
+mazeImage = drawMaze(maze, h, w, mazeH, mazeW)
+cv2.imshow("asd", mazeImage)
+cv2.waitKey(0)
 print(maze)
 
 # #Rearrang the color channel
