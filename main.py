@@ -46,19 +46,26 @@ def getMaze(h, w, preview=False):
     # ======初始化迷宮======
     mazeH, mazeW = h * 2 + 1, w * 2 + 1
     maze = np.zeros((mazeH * mazeW))
+
+    #region 格子
     for i in range(1, mazeH, 2):
         for j in range(1, mazeW, 2):
             maze[i * mazeW + j] = 1
+    #endregion
+
     for i in range(0, mazeH):
         maze[i * mazeW + 0] = -1
         maze[i * mazeW + mazeW - 1] = -1
+
     for i in range(0, mazeW):
         maze[0 * mazeW + i] = -1
         maze[(mazeH - 1) * mazeW + i] = -1
+
     for i in range(0, mazeH, 2):
         for j in range(0, mazeW, 2):
             maze[i * mazeW + j] = -1
-    maze[0 + w + (w % 2 == 0)] = 1
+
+    maze[0 + w + (w % 2 == 0)] = 1 #出入口
     maze[h * 2 * mazeW + w + (w % 2 == 0)] = 1
 
     # ======初始化演算法======
@@ -90,6 +97,7 @@ def getMaze(h, w, preview=False):
     for i in range(0, mazeH):
         for j in range(0, mazeW):
             returnMaze[i][j] = maze[i * mazeW + j] if maze[i * mazeW + j] >= 0 else 0
+
     return returnMaze
 def drawMaze(maze, h, w, mazeH, mazeW, preview=False):
     if(maze.ndim == 1):
@@ -129,7 +137,7 @@ def drawMaze(maze, h, w, mazeH, mazeW, preview=False):
     return mazeImage
 
 
-h, w = 15, 15
+h, w = 10, 10
 mazeH, mazeW = 500, 500
 maze = getMaze(h, w, preview=True)
 mazeImage = drawMaze(maze, h, w, mazeH, mazeW)
